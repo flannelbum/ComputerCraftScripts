@@ -1,0 +1,269 @@
+function printLine(line, str, bolCenter)
+  line = tonumber(line)
+  if bolCenter == true then
+    mon.setCursorPos(center(str), line)
+  else
+    mon.setCursorPos(1,line)
+  end
+  mon.write(str)
+end
+
+function round(num)
+  if num ~= nil then
+    if num%2 ~= 0.5 then
+      return math.floor(num + 0.5)
+    end
+    return num - 0.5
+  else
+    print("something is fucked dude")
+  end
+end
+
+function center(str)
+  -- input str output where to start printing it on x
+  
+  -- Get our full size and center x (our vertical axis)
+  x, y = mon.getSize()
+  xCenter = round(x / 2)
+  
+  -- Get length and center of str
+  strLength = string.len(str)
+  strCenter = round(strLength / 2)
+   
+  -- Find the offset.  How far back should we start printing string to keep center?
+  offset = xCenter - strCenter
+  return offset + 1
+  
+end
+
+function diag(scale)
+  -- Basic settings
+  -- mon = peripheral.wrap("right")
+  -- mon.clear()
+  -- mon.setTextScale(scale)
+  -- mon.setBackgroundColor(colors.black)
+  -- mon.setTextColor(colors.white)
+
+  -- Get our full size and centers
+  x, y = mon.getSize()
+  centerx = round(x / 2)
+  centery = round(y / 2)
+  
+  -- Say something to terminal should mon be too jacked up to read
+  print("drawing diagnostic with scale: "..scale)
+  print("x and y: "..x.." "..y)
+  print("center x and y: "..centerx.." "..centery)
+     
+  -- Iterate lines and do stuff on specific lines
+  for line = 1, y do
+    if line == 1 or line == y then
+      mon.setCursorPos(1,line)
+      mon.write("+")
+      for c = 2, x - 1 do
+        mon.setCursorPos(c,line)
+        mon.write("-")
+      end
+      mon.write("+")
+    elseif line == centery then
+      mon.setCursorPos(1,line)
+      mon.write("| y = "..y)
+      mon.setCursorPos(x, line)
+      mon.write("|")
+    elseif line == 2 then
+      mon.setCursorPos(1,line)
+      mon.write("|")
+      mon.setCursorPos(centerx - 3,line)
+      mon.write("x = "..x)
+      mon.setCursorPos(x,line)
+      mon.write("|")
+    elseif line == centery + 1 then
+      mon.setCursorPos(1,line)
+      mon.write("| Scale: "..scale)
+      mon.setCursorPos(x, line)
+      mon.write("|")
+    else    
+      mon.setCursorPos(1,line)
+      mon.write("|")
+      mon.setCursorPos(x,line)
+      mon.write("|")
+    end
+  end
+end
+
+function fullDiag()
+  while true do
+    print("display diagnostic cycle.. use ctrl-t to quit")
+    for i = 1, 5 do
+      displayAPI.diag(i)
+      sleep(3)
+    end
+    for i = 1, 3 do
+      displayAPI.diag(5 - i)
+      sleep(3)
+    end
+  end
+end
+ 
+
+function banner()
+  -- "Eirinncraft DW20 FTB"
+  -- 14 x 2  
+  -- mon = peripheral.wrap("back")
+  -- mon.clear()
+  -- mon.setTextScale(2)
+  -- mon.setBackgroundColor(colors.black)
+  -- mon.setTextColor(colors.lime)
+  
+  printLine(1, "  Eirinncraft ")
+  printLine(2, "   DW20 FTB   ")
+end
+
+function rules()
+  -- ** Rule board/other info
+  -- 29 x 12
+  -- mon = peripheral.wrap("back")
+  -- mon.clear()
+  -- mon.setTextScale(1)
+  -- mon.setBackgroundColor(colors.black)
+  -- mon.setTextColor(colors.yellow)
+  
+  printLine(1, "            RULES            ")
+  printLine(2, "                             ")
+  printLine(3, "* No Griefing/raiding        ")
+  printLine(4, "* Don't be a jerk            ")
+  printLine(5, "* Respect other players      ")  
+  printLine(6, "* No duping/glitching        ")  
+  printLine(7, "* No hacks or mods           ")  
+  printLine(8, "* Use common sense           ")  
+  printLine(9, "* Check our site and the wiki")
+  printLine(10,"                             ")
+  printLine(11,"eirinncraft.net / ftbwiki.org")
+  printLine(12,"                             ")
+end
+
+function staff()
+  -- ** Staff board
+  -- 29 x 12
+  -- mon = peripheral.wrap("back")
+  -- mon.clear()
+  -- mon.setTextScale(1)
+  -- mon.setBackgroundColor(colors.black)
+  -- mon.setTextColor(colors.lightBlue)
+  
+  printLine(1, "            STAFF            ")
+  mon.setTextColor(colors.red)
+  printLine(2, "                             ")
+  printLine(3, "Owner: FlamingChipmunk       ")
+  printLine(4, "                             ")
+  printLine(5, "Admin:                       ")
+  printLine(6, "    mal, mark, and flannel   ")  
+  printLine(7, "                             ")  
+  mon.setTextColor(colors.purple)
+  printLine(8, "mod:    nobody!              ")  
+  printLine(9, "                             ")  
+  mon.setTextColor(colors.yellow)
+  printLine(10,"Teamspeak:                   ")
+  printLine(11,"ts3.digitalthemepark.com     ")
+  printLine(12,"                             ")
+end 
+
+function staffRules(bol)
+  print("displaying staff/rules loop... ctrl-t to exit")
+  if bol == true then
+    while true do
+      displayAPI.rules()
+      sleep(15)
+      displayAPI.staff()
+      sleep(15)
+    end
+  else
+    while true do
+      displayAPI.staff()
+      sleep(15)
+      displayAPI.rules()
+      sleep(15)    
+    end
+  end
+end
+
+function perks()
+  -- 29 x 19
+  -- mon = peripheral.wrap("back")
+  -- mon.clear() 
+  -- mon.setTextScale(1)
+  -- mon.setBackgroundColor(colors.black)
+  -- mon.setTextColor(colors.white)
+  printLine(7, "out of order", true)
+end
+
+function portals()
+  -- "All portals are public. Subject to reset without notification."
+  -- 14x7
+  
+  --setup mon and text scale/color/background 
+  -- mon = peripheral.wrap("right")
+  -- mon.clear() 
+  -- mon.setTextScale(5)
+  -- mon.setBackgroundColor(colors.lightGray)
+  -- mon.setTextColor(colors.black)
+  
+  -- attempt centering
+  printLine(1, "All Portals", true)
+  printLine(2, "Subject to", true)
+  mon.setTextColor(colors.red)
+  printLine(3, "Reset", true)
+  mon.setTextColor(colors.black)
+  printLine(4, " Without", true)
+  printLine(5, "Notification", true)
+  printLine(6, "              ")
+  printLine(7, "XOXO <3 Chip", true)
+  while true do
+    sleep(1)
+    mon.setTextColor(colors.lightGray)
+    printLine(3, "Reset", true)
+    sleep(0.25)
+    mon.setTextColor(colors.red)
+    printLine(3, "Reset", true)
+  end
+end
+
+function bigClock()
+  -- Display current time in an intentioned loop
+  -- 14x7
+  while true do 
+    edtTime = http.get("http://www.timeapi.org/est/in+one+hour").readAll():sub(12,16)
+    gmtTime = http.get("http://www.timeapi.org/gmt/in+one+hour").readAll():sub(12,16)
+    if edtTime == nil or gmtTime == nil then
+      print("timeapi seems down.  I'll go cheer it up!  Oh, and I quit!")
+      break
+    else
+      for i = 1, 240 do
+        -- timey-wimey stuff
+        igtTime = textutils.formatTime(os.time(), true)
+      
+        --setup mon and text scale/color/background 
+        -- mon = peripheral.wrap("right")
+        -- mon.clear()
+        -- mon.setTextScale(5)
+        -- mon.setBackgroundColor(colors.lightGray)
+        -- mon.setTextColor(colors.black)
+        
+        --start printing/animating
+        printLine(1, " Eirinncraft", true)
+        printLine(2, "Times", true)
+        printLine(4, "IGT: "..igtTime, true)
+        printLine(5, "GMT: "..gmtTime, true)
+        printLine(6, "EDT: "..edtTime, true)
+        sleep(0.25)     
+      end
+    end
+  end
+end
+
+function portalsClock()
+  print("portalClock() running.. use ctrl-t to stop")
+  while true do
+    parallel.waitForAny(function() bigClock() end, function() sleep(5) end)
+    parallel.waitForAny(function() portals() end, function() sleep(5) end)
+  end
+end

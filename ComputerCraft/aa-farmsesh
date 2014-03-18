@@ -1,0 +1,13 @@
+<NotepadPlus>
+    <Session activeView="0">
+        <mainView activeIndex="2">
+            <File firstVisibleLine="21" xOffset="0" scrollWidth="568" startPos="990" endPos="943" selMode="0" lang="Lua" encoding="-1" filename="D:\Dropbox\Public\ComputerCraft\cFramWalker.lua" />
+            <File firstVisibleLine="108" xOffset="0" scrollWidth="824" startPos="3089" endPos="3089" selMode="0" lang="Lua" encoding="-1" filename="D:\Dropbox\Public\ComputerCraft\cFarmNodeDeploy.lua" />
+            <File firstVisibleLine="291" xOffset="0" scrollWidth="1039" startPos="7088" endPos="7088" selMode="0" lang="Lua" encoding="-1" filename="D:\Dropbox\Public\ComputerCraft\cFarmMember.lua">
+                <Mark line="244" />
+                <Mark line="365" />
+            </File>
+        </mainView>
+        <subView activeIndex="0" />
+    </Session>
+</NotepadPlus>

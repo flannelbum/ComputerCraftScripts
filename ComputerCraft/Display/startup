@@ -1,0 +1,31 @@
+-- pastebin get 3KDyEKJe dropbox
+-- https://dl.dropbox.com/u/17630552/ComputerCraft/Display/startup
+--- use floppy or pastebin get wnNBA95n bootstrap
+
+-- configure monitor here and not in the API
+mon = peripheral.wrap("top")
+mon.clear()
+mon.setTextScale(scale)
+mon.setBackgroundColor(colors.black)
+mon.setTextColor(colors.white)
+
+
+if fs.exists("displayAPI") ~= true then
+  print("missing displayAPI")
+end  
+os.loadAPI("displayAPI")
+
+print("drawing display")
+--displayAPI.fullDiag()
+--displayAPI.banner()
+--displayAPI.rules()
+--displayAPI.staff()
+--displayAPI.staffRules(true)
+--displayAPI.bigClock()
+--displayAPI.portalsClock()
+--displayAPI.perks()
+
+
+
+ 
+

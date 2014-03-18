@@ -1,0 +1,29 @@
+--get the dropbox script and generate a dropboxfiles list
+
+--shell.setPath("/")
+
+if fs.exists("/dropbox") == true then
+  print("removing /dropbox")
+  fs.delete("/dropbox")
+end
+
+shell.run("pastebin", "get", "3KDyEKJe", "/dropbox")
+print("done: os.run")
+
+if fs.exists("/dropboxfiles") == true then
+  print("removing /dropboxfiles")
+  fs.delete("/dropboxfiles")
+end
+
+dbfiles = fs.open("/dropboxfiles", "w")
+dbfilelist = "https://dl.dropbox.com/u/17630552/ComputerCraft/Display/startup"
+dbfiles.writeLine(dbfilelist)
+dbfilelist = "https://dl.dropbox.com/u/17630552/ComputerCraft/Display/dropboxfiles"
+dbfiles.writeLine(dbfilelist)
+dbfiles.close()
+
+
+-- run through dropbox now that we have a list
+shell.run("/dropbox")
+
+print("Done.   Don't forget to eject the disk.")
