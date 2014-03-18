@@ -1,15 +1,13 @@
--- 0aVyeB9H
-
--- shoutBox
+-- shoutBox.lua
 -- Registers as a shoutBox to the router.  Accept and send new shouts.
 
-rednet.open("right")
+-- assumes the shoutIncludes.lua is loaded as shoutAPI and has already opened the modem.
 
 rednet.broadcast("Register me as a shoutBox Request")
 
 function display(shout)
   term.clear()
-  x,y = term.getSize()
+  local x,y = term.getSize()
   term.setCursorPos(1,1)
   term.write("ShoutBox -- Type in a new shout and press enter")
   if shout ~= nil then
@@ -22,7 +20,7 @@ end
 
 while true do
   display()
-  shout = tostring(read())
+  local shout = tostring(read())
   
   rednet.broadcast(shout)
   display(shout)

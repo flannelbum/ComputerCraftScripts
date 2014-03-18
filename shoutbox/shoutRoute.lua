@@ -1,14 +1,14 @@
--- yp2gLh0r
+-- shoutRoute.lua
+-- routs shouts ya'll
 
--- Shout Router
--- Listen for and send updated shouts to catchers
+-- assumes the shoutIncludes.lua is loaded as shoutAPI and has already opened the modem.
 
 rednet.open("right")
 
 shoutBoxes = { }
 
 if fs.exists("shoutBoxes") then
-  shoutBoxesFile = fs.open("shoutBoxes", "r")
+  local shoutBoxesFile = fs.open("shoutBoxes", "r")
   for shoutBox in shoutBoxesFile.readLine do
     table.insert(shoutBoxes, shoutBox)
   end
@@ -17,16 +17,15 @@ end
   
 
 function debugTable(table)
-  serialize = textutils.serialize(table)
+  local serialize = textutils.serialize(table)
   print("debugTable: " .. serialize)
 end
-  
 
 function getShouts()
   print("getShouts() called!")
-  shouts = {}
+  local shouts = {}
   if fs.exists("shouts") then 
-    shoutsFile = fs.open("shouts","r") 
+    local shoutsFile = fs.open("shouts","r")
     for shout in shoutsFile.readLine do
       table.insert(shouts,shout) 
     end
@@ -40,22 +39,15 @@ end
 
 function sendShouts()
   print("sendShouts()")
-  shouts = getShouts()
-  msg = textutils.serialize(shouts)
+  local shouts = getShouts()
+  local msg = textutils.serialize(shouts)
   rednet.broadcast(msg)
-end
-
-function msgLog(id, msg, d)
-  data = "ID:" .. id .. " MSG: " .. msg .." d:" .. d
-  logfile = fs.open("msgLog", "a")
-  logfile.writeLine(data)
-  logfile.close()
-  print(data)
 end
 
 function registerShoutBox(id)
   print("Registering " .. id .. " as a shoutBox")
-  shoutBoxes = {}
+  local shoutBoxes = {}
+  local shoutBoxesFile
   if fs.exists("shoutBoxes") ~= true then
     shoutBoxesFile = fs.open("shoutBoxes","w")
     shoutBoxesFile.writeLine(id)
@@ -81,9 +73,9 @@ function registerShoutBox(id)
 end
 
 function listener()
-  id, msg, d = rednet.receive()
+  local id, msg, d = rednet.receive()
   msg = tostring(msg)
-  msgLog(id, msg, d)
+  shoutAPI.msgLog(id, msg, d)
   
   -- only take a new shout from known shoutBoxes
   for i, shoutBox in pairs(shoutBoxes) do
@@ -98,16 +90,15 @@ function listener()
           sendShouts()
         else
           print("--ID "..id.." is shouting: " ..msg)
-          shouts = getShouts()
-          table.insert(shouts, msg)
+          table.insert(getShouts(), msg)
           
           if fs.exists("shouts") ~= true then
-            shoutsFile = fs.open("shouts", "w")
+            local shoutsFile = fs.open("shouts", "w")
             shoutsFile.writeLine(msg)
             shoutsFile.close()
             sendShouts()
           else
-            shoutsFile = fs.open("shouts", "a")
+            local shoutsFile = fs.open("shouts", "a")
             shoutsFile.writeLine(msg)
             shoutsFile.close()
             sendShouts()            

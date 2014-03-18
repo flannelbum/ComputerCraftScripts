@@ -1,9 +1,7 @@
--- wiFJ6F3y
- 
--- Shout Catcher
+-- shoutCatcher.lua
 -- Simply catches updates and displays them.  
- 
-rednet.open("back")
+-- assumes the shoutIncludes.lua is loaded as shoutAPI and has already opened the modem.
+
 mon = peripheral.wrap("left")
 mon.setTextScale(4)
 nRate = 5
@@ -23,26 +21,26 @@ function getShouts()
 end
   
 function msgLog(id, msg, d)
-  data = "ID:" .. id .. " MSG: " .. msg .." d:" .. d
-  logfile = fs.open("msgLog", "a")
+  local data = "ID:" .. id .. " MSG: " .. msg .." d:" .. d
+  local logfile = fs.open("msgLog", "a")
   logfile.writeLine(data)
   logfile.close()
   print(data)
 end
-  
+
 function listener()
   print("listening for shoutRouter: " .. shoutRouter)
-  event, id, msg, d = os.pullEvent("rednet_message")
+  local event, id, msg, d = os.pullEvent("rednet_message")
   msgLog(id, msg, d)
  
   
   
   if msg == "I am your shoutRouter" then
-    shoutRouter = id
+    local shoutRouter = id
   end
  
   if id == shoutRouter and msg ~= "I am your shoutRouter" then
-    shouts = textutils.unserialize(msg)
+    local shouts = textutils.unserialize(msg)
   end
 end
 
@@ -55,15 +53,16 @@ function scrollText(tStrings, nRate) -- by toxicwolf.  Thanks, guy!
   end
   local nSleep = 1 / nRate
  
-  width, height = mon.getSize()
-  x, y = mon.getCursorPos()
-  sText = ""
+  local width, height = mon.getSize()
+  local x, y = mon.getCursorPos()
+  local sText = ""
   for n = 1, #tStrings do
     sText = sText .. tostring(tStrings[n])
     sText = sText .. " | "
   end
- 
-  sString = "| "
+
+  local nStringRepeat
+  local sString = "| "
   if width / string.len(sText) < 1 then
     nStringRepeat = 3
   else
@@ -75,7 +74,7 @@ function scrollText(tStrings, nRate) -- by toxicwolf.  Thanks, guy!
  
   while true do
     for n = 1, string.len(sText) do
-     sDisplay = string.sub(sString, n, n + width - 1)
+     local sDisplay = string.sub(sString, n, n + width - 1)
      mon.clearLine()
      mon.setCursorPos(1, y)
      mon.write(sDisplay)
