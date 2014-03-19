@@ -21,9 +21,9 @@ end
 
 function getShouts()
   print("getShouts() called!")
-  local shouts = {}
+  shouts = {}
   if fs.exists("shouts") then 
-    local shoutsFile = fs.open("shouts","r")
+    shoutsFile = fs.open("shouts","r")
     for shout in shoutsFile.readLine do
       table.insert(shouts,shout) 
     end
@@ -37,14 +37,14 @@ end
 
 function sendShouts()
   print("sendShouts()")
-  local shouts = getShouts()
+  shouts = getShouts()
   local msg = textutils.serialize(shouts)
   rednet.broadcast(msg)
 end
 
 function registerShoutBox(id)
   print("Registering " .. id .. " as a shoutBox")
-  local shoutBoxes = {}
+  shoutBoxes = {}
   local shoutBoxesFile
   if fs.exists("shoutBoxes") ~= true then
     shoutBoxesFile = fs.open("shoutBoxes","w")
