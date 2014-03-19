@@ -40,7 +40,7 @@ function listener()
   end
  
   if id == shoutRouter and msg ~= "I am your shoutRouter" then
-    local shouts = textutils.unserialize(msg)
+    shouts = textutils.unserialize(msg)
   end
 end
 

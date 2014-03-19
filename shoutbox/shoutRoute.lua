@@ -3,8 +3,6 @@
 
 -- assumes the shoutIncludes.lua is loaded as shoutAPI and has already opened the modem.
 
-rednet.open("right")
-
 shoutBoxes = { }
 
 if fs.exists("shoutBoxes") then

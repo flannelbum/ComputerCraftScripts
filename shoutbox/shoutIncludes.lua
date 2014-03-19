@@ -9,9 +9,11 @@ function openModem()
             if not rednet.isOpen(v) then
                 rednet.open(v)
             end
+            print("modem opened on the "..v)
             return true
         end
     end
+    print("no modem found")
     return false
 end
 
