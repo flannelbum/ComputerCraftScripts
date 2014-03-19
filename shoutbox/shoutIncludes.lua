@@ -20,8 +20,8 @@ end
 function getMonitor()
     for i, v in pairs(rs.getSides()) do
         if peripheral.getType(v) == "monitor" then
-            local monitor = peripheral.wrap(v)
-            return monitor
+            v = peripheral.wrap(v)
+            return v
         else
             return nil
         end

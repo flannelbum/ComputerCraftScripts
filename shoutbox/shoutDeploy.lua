@@ -70,7 +70,7 @@ function main(args)
             local startupLines = {
                 "-- shoutDeploy generated startup for: ".. file
                 ,""
-                ,"alwaysgit = true"
+                ,"alwaysgit = false"
                 ,""
                 ,"--shoutAPI aka shoutIncludes.lua"
                 ,"if fs.exists(\"shoutIncludes.lua\") ~= true then print(\"shoutIncludes.lua missing.  try running: deploy ".. type .."\") os.exit() end"
