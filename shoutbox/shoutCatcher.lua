@@ -3,8 +3,15 @@
 -- assumes the shoutIncludes.lua is loaded as shoutAPI and has already opened the modem.
 
 
---peripheral.wrap("top")
+--shoutAPI aka shoutIncludes.lua
+if fs.exists("shoutIncludes.lua") ~= true then print("shoutIncludes.lua missing.  try running: deploy ".. type) os.exit() end
+fs.move("shoutIncludes.lua","shoutAPI")
+os.loadAPI("shoutAPI")
+fs.move("shoutAPI","shoutIncludes.lua")
+
 mon = shoutAPI.getMonitor()
+if mon == nil then print("monitor not found so I quit") os.exit() end
+
 mon.setTextScale(4)
 nRate = 5
 shoutRouter = 1 --this gets supplied later.
