@@ -22,10 +22,9 @@ function getMonitor()
         if peripheral.getType(v) == "monitor" then
             v = peripheral.wrap(v)
             return v
-        else
-            return nil
         end
     end
+    return nil
 end
 
 function msgLog(id, msg, d)
