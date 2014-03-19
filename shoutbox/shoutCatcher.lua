@@ -4,13 +4,13 @@
 
 
 --shoutAPI aka shoutIncludes.lua
-if fs.exists("shoutIncludes.lua") ~= true then print("shoutIncludes.lua missing.  try running: deploy ".. type) os.exit() end
+if fs.exists("shoutIncludes.lua") ~= true then error("shoutIncludes.lua missing.") end
 fs.move("shoutIncludes.lua","shoutAPI")
 os.loadAPI("shoutAPI")
 fs.move("shoutAPI","shoutIncludes.lua")
 
 mon = shoutAPI.getMonitor()
-if mon == nil then print("monitor not found so I quit") os.exit() end
+if mon == nil then error("monitor not found.") end
 
 mon.setTextScale(4)
 nRate = 5

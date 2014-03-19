@@ -73,7 +73,7 @@ function main(args)
                 ,"alwaysgit = false"
                 ,""
                 ,"--shoutAPI aka shoutIncludes.lua"
-                ,"if fs.exists(\"shoutIncludes.lua\") ~= true then print(\"shoutIncludes.lua missing.  try running: deploy ".. type .."\") os.exit() end"
+                ,"if fs.exists(\"shoutIncludes.lua\") ~= true then error(\"shoutIncludes.lua missing.  try running: deploy ".. type .."\") end"
                 ,"fs.move(\"shoutIncludes.lua\",\"shoutAPI\")"
                 ,"os.loadAPI(\"shoutAPI\")"
                 ,"fs.move(\"shoutAPI\",\"shoutIncludes.lua\")"
