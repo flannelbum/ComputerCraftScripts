@@ -29,14 +29,15 @@ function getMonitor()
 end
 
 function msgLog(id, msg, d)
+    local logfile
     -- if our log is too big, how helpful is it?  let's toast it and start again
     -- measured in bytes... this be 4k which feels kinda big.  we'll see.
-    if fs.getSize("msgLog") > 4096 then fs.delete("msgLog") end
+    if fs.exists("msgLog") == true and fs.getSize("msgLog") > 4096 then fs.delete("msgLog") end
 
     if fs.exists("msgLog") == true then
-        local logfile = fs.open("msgLog", "a")
+        logfile = fs.open("msgLog", "a")
     else
-        local logfile = fs.open("msgLog", "w")
+        logfile = fs.open("msgLog", "w")
     end
     local data = "ID:" .. id .. " MSG: " .. msg .." d:" .. d
 
