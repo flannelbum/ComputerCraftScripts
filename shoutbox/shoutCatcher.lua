@@ -2,7 +2,9 @@
 -- Simply catches updates and displays them.  
 -- assumes the shoutIncludes.lua is loaded as shoutAPI and has already opened the modem.
 
-mon = peripheral.wrap("left")
+
+--peripheral.wrap("top")
+mon = shoutAPI.getMonitor()
 mon.setTextScale(4)
 nRate = 5
 shoutRouter = 1 --this gets supplied later.
@@ -20,23 +22,14 @@ function getShouts()
   return shouts
 end
   
-function msgLog(id, msg, d)
-  local data = "ID:" .. id .. " MSG: " .. msg .." d:" .. d
-  local logfile = fs.open("msgLog", "a")
-  logfile.writeLine(data)
-  logfile.close()
-  print(data)
-end
 
 function listener()
   print("listening for shoutRouter: " .. shoutRouter)
   local event, id, msg, d = os.pullEvent("rednet_message")
-  msgLog(id, msg, d)
- 
-  
-  
+  shoutAPI.msgLog(id, msg, d)
+
   if msg == "I am your shoutRouter" then
-    local shoutRouter = id
+    shoutRouter = id
   end
  
   if id == shoutRouter and msg ~= "I am your shoutRouter" then
